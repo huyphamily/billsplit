@@ -1,8 +1,8 @@
 {
-  "name": "react-webpack-node",
-  "version": "1.7.2",
-  "description": "A simple Node.js app using Express 4 with Webpack, React, alt, ImmutableJS",
-  "repository": "https://github.com/choonkending/react-webpack-node",
+  "name": "bill-split",
+  "version": "0.1.0",
+  "description": "Bill splitting with Node.js app using Express 4 with Webpack, React, Redux, and Postgres",
+  "repository": "https://github.com/huyphamily/billsplit",
   "main": "index.js",
   "scripts": {
     "babel": "babel --presets es2015,stage-0 --ignore node_modules,public",
