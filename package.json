@@ -20,7 +20,7 @@
     "test:watch": "cross-env NODE_ENV=test npm test -- --watch --no-single-run",
     "postinstall": "npm run build"
   },
-  "author": "Choon Ken Ding",
+  "author": "Huy Pham",
   "license": "MIT",
   "devDependencies": {
     "eslint-config-airbnb": "^7.0.0",
