@@ -6,7 +6,3 @@
 .description {
   composes: normal from '../common/typography';
 }
-
-.contribute {
-  composes: small from '../common/typography';
-}
