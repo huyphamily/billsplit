@@ -18,6 +18,10 @@ module.exports = {
           type: DataTypes.STRING,
           defaultValue: ''
         },
+        operative: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false
+        },
         gender: {
           type: DataTypes.STRING,
           defaultValue: ''

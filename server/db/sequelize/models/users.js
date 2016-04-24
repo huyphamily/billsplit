@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: ''
     },
+    operative: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     gender: {
       type: DataTypes.STRING,
       defaultValue: ''
@@ -63,6 +67,14 @@ module.exports = (sequelize, DataTypes) => {
       associate(models) {
         User.hasMany(models.Token, {
           foreignKey: 'userId'
+        });
+        User.hasMany(models.Bill, {
+          as: 'Debts',
+          foreignKey: 'debtorId'
+        });
+        User.hasMany(models.Bill, {
+          as: 'Credits',
+          foreignKey: 'creditorId'
         });
       }
     },
