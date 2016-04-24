@@ -39,12 +39,30 @@ export function logout(req, res) {
 export function signUp(req, res, next) {
   User.findOne({ where: { email: req.body.email } }).then((existingUser) => {
     if (existingUser) {
-      return res.status(409).json({ message: 'Account with this email address already exists!' });
+      if (existingUser.operative) {
+        return res.status(409).json({ message: 'Account with this email address already exists!' });
+      }
+
+      return User.update({
+        password: req.body.password,
+        operative: true
+      }).then(() => {
+        req.logIn(existingUser, (err) => {
+          if (err) return res.status(401).json({ message: err });
+          return res.status(200).json({
+            message: 'You have been successfully logged in.'
+          });
+        });
+      }).catch((err) => {
+        console.log(err);
+        return res.status(500).send('We failed to save for some reason');
+      });
     }
 
     const user = User.build({
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      operative: true
     });
 
     return user.save().then(() => {
