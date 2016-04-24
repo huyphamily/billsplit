@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+.tmp
+.idea
+public
+compiled
+.swp
+.vscode
+server/config/secrets.js
+server/db/sequelize/sequelize_config.js
