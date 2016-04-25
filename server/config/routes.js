@@ -18,6 +18,16 @@ export default (app) => {
     console.warn(unsupportedMessage('users routes'));
   }
 
+  // bill routes
+  if (billsController) {
+    app.get('/bill', billsController.all);
+    app.post('/bill/:id', billsController.add);
+    app.put('/bill/:id', billsController.update);
+    app.delete('/bill/:id', billsController.remove);
+  } else {
+    console.warn(unsupportedMessage('bills routes'));
+  }
+
   if (passportConfig && passportConfig.google) {
     // google auth
     // Redirect the user to Google for authentication. When complete, Google
@@ -41,15 +51,5 @@ export default (app) => {
         failureRedirect: '/login'
       })
     );
-  }
-
-  // bill routes
-  if (billsController) {
-    app.get('/bill', billsController.all);
-    app.post('/bill/:id', billsController.add);
-    app.put('/bill/:id', billsController.update);
-    app.delete('/bill/:id', billsController.remove);
-  } else {
-    console.warn(unsupportedMessage('bills routes'));
   }
 };
