@@ -6,12 +6,17 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import createRoutes from 'routes.jsx';
 import configureStore from 'store/configureStore';
 import { fetchComponentDataBeforeRender } from 'api/fetchComponentDataBeforeRender';
+import apiClient from 'api/apiClient';
 
 // Grab the state from a global injected into
 // server-generated HTML
 const initialState = window.__INITIAL_STATE__;
 
-const store = configureStore(initialState, browserHistory);
+// Setting Global server variable to be false
+window.__SERVER__ = false;
+
+const client = apiClient();
+const store = configureStore(initialState, browserHistory, client);
 const history = syncHistoryWithStore(browserHistory, store);
 const routes = createRoutes(store);
 

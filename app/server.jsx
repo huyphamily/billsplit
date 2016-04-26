@@ -1,20 +1,21 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { RouterContext, match, createMemoryHistory } from 'react-router'
-import axios from 'axios';
+import { RouterContext, match, createMemoryHistory } from 'react-router';
+// import axios from 'axios';
 import { Provider } from 'react-redux';
 import createRoutes from 'routes.jsx';
 import configureStore from 'store/configureStore';
 import headconfig from 'components/Meta';
 import { fetchComponentDataBeforeRender } from 'api/fetchComponentDataBeforeRender';
+import apiClient from 'api/apiClient';
 
 const clientConfig = {
   host: process.env.HOSTNAME || 'localhost',
   port: process.env.PORT || '3000'
 };
 
-// configure baseURL for axios requests (for serverside API calls)
-axios.defaults.baseURL = `http://${clientConfig.host}:${clientConfig.port}`;
+// setting our global server variable to be true
+global.__SERVER__ = true;
 
 /*
  * Our html template file
@@ -22,7 +23,7 @@ axios.defaults.baseURL = `http://${clientConfig.host}:${clientConfig.port}`;
  * @param initial state of the store, so that the client can be hydrated with the same state as the server
  * @param head - optional arguments to be placed into the head
  */
-function renderFullPage(renderedContent, initialState, head={
+function renderFullPage(renderedContent, initialState, head = {
   title: 'React Webpack Node',
   meta: '<meta name="viewport" content="width=device-width, initial-scale=1" />',
   link: '<link rel="stylesheet" href="/assets/styles/main.css"/>'
@@ -56,6 +57,7 @@ function renderFullPage(renderedContent, initialState, head={
  * and pass it into the Router.run function.
  */
 export default function render(req, res) {
+    const client = apiClient(req, clientConfig);
     const history = createMemoryHistory();
     const authenticated = req.isAuthenticated();
     const store = configureStore({
@@ -65,7 +67,7 @@ export default function render(req, res) {
         message: '',
         isLogin: true
       }
-    }, history);
+    }, history, client);
 
     const routes = createRoutes(store);
 
