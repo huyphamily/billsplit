@@ -1,43 +1,20 @@
-import superagent from 'superagent';
+import axios from 'axios';
 import { polyfill } from 'es6-promise';
 
 polyfill();
 
-const methods = ['get', 'post', 'put', 'patch', 'del'];
-
-function formatUrl(path, clientConfig) {
-  const adjustedPath = path[0] !== '/' ? `/${path}` : path;
+export default function apiClient(req, clientConfig) {
   if (__SERVER__) {
-    // Prepend host and port of the API server to the path.
-    return `http://${clientConfig.host}:${clientConfig.port}${adjustedPath}`;
-  }
-  return adjustedPath;
-}
-
-class ApiClient {
-  constructor(req, clientConfig) {
-    methods.forEach((method) => {
-      this[method] = (path, { params, data } = {}) => new Promise((resolve, reject) => {
-        const request = superagent[method](formatUrl(path, clientConfig));
-
-        if (params) {
-          request.query(params);
-        }
-
-        if (__SERVER__ && req.get('cookie')) {
-          request.set('cookie', req.get('cookie'));
-        }
-
-        if (data) {
-          request.send(data);
-        }
-
-        request.end((err, { body } = {}) => {
-          return err ? reject(body || err) : resolve(body);
-        });
-      });
+    const client = axios.create({
+      baseURL: `http://${clientConfig.host}:${clientConfig.port}`
     });
-  }
-}
 
-export default ApiClient;
+    client.interceptors.request.use(config => {
+      config.headers['cookie'] = req.headers.cookie; // eslint-disable-line
+      return config;
+    }, (error) => Promise.reject(error));
+    return client;
+  }
+
+  return axios;
+}
