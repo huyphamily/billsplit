@@ -1,4 +1,7 @@
 import superagent from 'superagent';
+import { polyfill } from 'es6-promise';
+
+polyfill();
 
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
