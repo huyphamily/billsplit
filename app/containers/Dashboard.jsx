@@ -1,10 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { fetchBills } from 'actions/bills';
 
-/*
- * Note: This is kept as a container-level component,
- *  i.e. We should keep this as the container that does the data-fetching
- *  and dispatching of actions if you decide to have any sub-components.
- */
-const Dashboard = () => <div>Welcome to the Dasboard. Stay tuned...</div>;
+class Dashboard extends Component {
 
-export default Dashboard;
+  static need = [  // eslint-disable-line
+    fetchBills
+  ]
+
+  renderBills() {
+    return <span>cool</span>;
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.bill.isFetching ? 'loading...' : this.renderBills()}
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return { bill: state.bill };
+}
+
+export default connect(mapStateToProps, { fetchBills })(Dashboard);
