@@ -12,8 +12,7 @@ export function all(req, res) {
       { model: Bill, as: 'Debts' },
       { model: Bill, as: 'Credits' }
     ]
-  }).then((existingUser) => {
-    const { Credits, Debts } = existingUser;
+  }).then(({ Credits, Debts }) => {
     return res.json({ Credits, Debts });
   }).catch((err) => {
     console.log(err);
