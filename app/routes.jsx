@@ -6,6 +6,7 @@ import MainSection from 'components/MainSection';
 import About from 'containers/About';
 import LoginOrRegister from 'containers/LoginOrRegister';
 import Dashboard from 'containers/Dashboard';
+import BillView from 'containers/BillView';
 
 /*
  * @param {Redux Store}
@@ -37,7 +38,9 @@ export default (store) => {
     <Route path="/" component={App}>
       <IndexRoute component={MainSection} />
       <Route path="login" component={LoginOrRegister} onEnter={redirectAuth} />
-      <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
+      <Route path="dashboard" component={Dashboard} onEnter={requireAuth}>
+        <IndexRoute component={BillView} />
+      </Route>
       <Route path="about" component={About} />
     </Route>
   );

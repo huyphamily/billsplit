@@ -1,28 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchBills } from 'actions/bills';
+import React from 'react';
 
-class Dashboard extends Component {
-
-  static need = [  // eslint-disable-line
-    fetchBills
-  ]
-
-  renderBills() {
-    return <span>cool</span>;
-  }
-
-  render() {
-    return (
+export default ({ children }) => {
+  return (
+    <div>
       <div>
-        {this.props.bill.isFetching ? 'loading...' : this.renderBills()}
+        <input type="button" value="View Bills" />
+        <input type="button" value="Add a Bill" />
       </div>
-    );
-  }
-}
-
-function mapStateToProps(state) {
-  return { bill: state.bill };
-}
-
-export default connect(mapStateToProps, { fetchBills })(Dashboard);
+      <div>
+        {children}
+      </div>
+    </div>
+  );
+};
