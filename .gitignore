@@ -8,4 +8,3 @@ compiled
 .vscode
 .DS_Store
 server/config/secrets.js
-server/db/sequelize/sequelize_config.js
