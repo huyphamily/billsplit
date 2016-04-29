@@ -5,6 +5,14 @@ import * as types from 'constants/index';
 export function fetchBills() {
   return {
     type: types.GET_BILLS,
-    promise: (client) => client.get('/bill')
+    promise: (request) => request.get('/bill')
+  };
+}
+
+// Fetch posts logic
+export function addBill(data) {
+  return {
+    type: types.ADD_BILL,
+    promise: (request) => request.post('/bill/new', data)
   };
 }

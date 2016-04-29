@@ -24,12 +24,12 @@ export function all(req, res) {
  * Add a Bill
  * will create a non-operative user if user does not exist
  */
-function createBill(req, res, debtorId) {
+function createBill(req, res, existingUserId) {
   return Bill.create({
     description: req.body.description,
     amount: req.body.amount,
-    creditorId: req.user.id,
-    debtorId
+    creditorId: req.body.isPayer === 'true' ? req.user.id : existingUserId,
+    debtorId: req.body.isPayer === 'true' ? existingUserId : req.user.id
   }).then(() => {
     return res.status(200).send('OK');
   }).catch((err) => {
@@ -39,16 +39,16 @@ function createBill(req, res, debtorId) {
 }
 
 export function add(req, res) {
-  return User.findOne({ where: { email: req.body.email } }).then((existingUser) => {
-    if (existingUser !== null) {
+  return User.findOne({ where: { email: req.body.participant } }).then((existingUser) => {
+    if (existingUser) {
       return createBill(req, res, existingUser.id);
     }
     const newUser = User.build({
-      email: req.body.email,
+      email: req.body.participant,
       operative: false
     });
 
-    return newUser.save.then(() => {
+    return newUser.save().then(() => {
       return createBill(req, res, newUser.id);
     }).catch((err) => {
       console.log(err);
