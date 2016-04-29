@@ -21,7 +21,7 @@ export default (app) => {
   // bill routes
   if (billsController) {
     app.get('/bill', billsController.all);
-    app.post('/bill/:id', billsController.add);
+    app.post('/bill/new', billsController.add);
     app.put('/bill/:id', billsController.update);
     app.delete('/bill/:id', billsController.remove);
   } else {
