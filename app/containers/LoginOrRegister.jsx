@@ -17,28 +17,26 @@ class LoginOrRegister extends Component {
   constructor(props) {
     super(props);
     this.toggleMode = this.toggleMode.bind(this);
-    this.onLoginSubmit = this.onLoginSubmit.bind(this);
-    this.onRegisterSubmit = this.onRegisterSubmit.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
-  onLoginSubmit() {
-    const { dispatch } = this.props;
+  handleOnSubmit(event) {
+    event.preventDefault();
+    const { user: { isLogin }, dispatch } = this.props;
     const email = ReactDOM.findDOMNode(this.refs.email).value;
     const password = ReactDOM.findDOMNode(this.refs.password).value;
-    dispatch(manualLogin({
-      email,
-      password
-    }));
-  }
 
-  onRegisterSubmit() {
-    const { dispatch } = this.props;
-    const email = ReactDOM.findDOMNode(this.refs.email).value;
-    const password = ReactDOM.findDOMNode(this.refs.password).value;
-    dispatch(signUp({
-      email,
-      password
-    }));
+    if (isLogin) {
+      dispatch(manualLogin({
+        email,
+        password
+      }));
+    } else {
+      dispatch(signUp({
+        email,
+        password
+      }));
+    }
   }
 
   toggleMode() {
@@ -72,23 +70,8 @@ class LoginOrRegister extends Component {
     );
   }
 
-  renderButton() {
-    const { isLogin } = this.props.user;
-    if (isLogin) {
-      return (
-        <button className={cx('button')}
-          onClick={this.onLoginSubmit}>Login</button>
-      );
-    }
-
-    return (
-      <button className={cx('button')}
-        onClick={this.onRegisterSubmit}>Register</button>
-    );
-  }
-
   render() {
-    const { isWaiting, message } = this.props.user;
+    const { isWaiting, message, isLogin } = this.props.user;
 
     return (
       <div className={cx('login', {
@@ -98,27 +81,21 @@ class LoginOrRegister extends Component {
           { this.renderHeader() }
           <img className={cx('loading')} src={hourGlassSvg} />
           <div className={cx('email-container')}>
-            <input className={cx('input')}
-              type="email"
-              ref="email"
-              placeholder="email" />
-            <input className={cx('input')}
-              type="password"
-              ref="password"
-              placeholder="password" />
-            <div className={cx('hint')}>
-              <div>Hint</div>
-              <div>email: example@ninja.com password: ninja</div>
-            </div>
-            <p className={cx('message', {
-              'message-show': message && message.length > 0
+            <form onSubmit={this.handleOnSubmit}>
+              <input className={cx('input')}
+                type="email"
+                ref="email"
+                placeholder="email" />
+              <input className={cx('input')}
+                type="password"
+                ref="password"
+                placeholder="password" />
+              <p className={cx('message', {
+                'message-show': message && message.length > 0
               })}>{message}</p>
-            { this.renderButton() }
-          </div>
-          <div className={cx('google-container')}>
-            <h1 className={cx('heading')}>Google Login Demo</h1>
-            <a className={cx('button')}
-          href="/auth/google">Login with Google</a>
+              <input className={cx('button')} type="submit"
+                value={isLogin ? 'Login' : 'Register'} />
+            </form>
           </div>
         </div>
       </div>
