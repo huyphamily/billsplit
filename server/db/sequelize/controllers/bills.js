@@ -40,15 +40,15 @@ function createBill(req, res, existingUserId) {
 
 export function add(req, res) {
   return User.findOne({ where: { email: req.body.participant } }).then((existingUser) => {
-    if (existingUser !== null || existingUser !== undefined) {
+    if (existingUser) {
       return createBill(req, res, existingUser.id);
     }
     const newUser = User.build({
-      email: req.body.email,
+      email: req.body.participant,
       operative: false
     });
 
-    return newUser.save.then(() => {
+    return newUser.save().then(() => {
       return createBill(req, res, newUser.id);
     }).catch((err) => {
       console.log(err);
