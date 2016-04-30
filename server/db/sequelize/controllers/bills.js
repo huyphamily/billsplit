@@ -9,8 +9,18 @@ export function all(req, res) {
   return User.findOne({
     where: { id: req.user.id },
     include: [
-      { model: Bill, as: 'Debts' },
-      { model: Bill, as: 'Credits' }
+      {
+        model: Bill,
+        as: 'Debts',
+        attributes: { exclude: ['creditorId', 'debtorId'] },
+        include: { model: User, as: 'Creditor', attributes: ['email'] }
+      },
+      {
+        model: Bill,
+        as: 'Credits',
+        attributes: { exclude: ['creditorId', 'debtorId'] },
+        include: { model: User, as: 'Debtor', attributes: ['email'] }
+      }
     ]
   }).then(({ Credits, Debts }) => {
     return res.json({ Credits, Debts });
