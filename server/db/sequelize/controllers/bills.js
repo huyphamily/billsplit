@@ -9,11 +9,21 @@ export function all(req, res) {
   return User.findOne({
     where: { id: req.user.id },
     include: [
-      { model: Bill, as: 'Debts' },
-      { model: Bill, as: 'Credits' }
+      {
+        model: Bill,
+        as: 'debts',
+        attributes: { exclude: ['creditorId', 'debtorId'] },
+        include: { model: User, as: 'creditor', attributes: ['email'] }
+      },
+      {
+        model: Bill,
+        as: 'credits',
+        attributes: { exclude: ['creditorId', 'debtorId'] },
+        include: { model: User, as: 'debtor', attributes: ['email'] }
+      }
     ]
-  }).then(({ Credits, Debts }) => {
-    return res.json({ Credits, Debts });
+  }).then(({ credits, debts }) => {
+    return res.json({ credits, debts });
   }).catch((err) => {
     console.log(err);
     return res.status(500).send('Error in first query');
