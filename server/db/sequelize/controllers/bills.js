@@ -11,19 +11,19 @@ export function all(req, res) {
     include: [
       {
         model: Bill,
-        as: 'Debts',
+        as: 'debts',
         attributes: { exclude: ['creditorId', 'debtorId'] },
-        include: { model: User, as: 'Creditor', attributes: ['email'] }
+        include: { model: User, as: 'creditor', attributes: ['email'] }
       },
       {
         model: Bill,
-        as: 'Credits',
+        as: 'credits',
         attributes: { exclude: ['creditorId', 'debtorId'] },
-        include: { model: User, as: 'Debtor', attributes: ['email'] }
+        include: { model: User, as: 'debtor', attributes: ['email'] }
       }
     ]
-  }).then(({ Credits, Debts }) => {
-    return res.json({ Credits, Debts });
+  }).then(({ credits, debts }) => {
+    return res.json({ credits, debts });
   }).catch((err) => {
     console.log(err);
     return res.status(500).send('Error in first query');

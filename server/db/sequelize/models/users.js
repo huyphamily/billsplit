@@ -69,11 +69,11 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'userId'
         });
         User.hasMany(models.Bill, {
-          as: 'Debts',
+          as: 'debts',
           foreignKey: 'debtorId'
         });
         User.hasMany(models.Bill, {
-          as: 'Credits',
+          as: 'credits',
           foreignKey: 'creditorId'
         });
       }

@@ -27,11 +27,11 @@ export default (sequelize, DataTypes) => {
       associate(models) {
         // associations can be defined here
         Bill.belongsTo(models.User, {
-          as: 'Debtor',
+          as: 'debtor',
           foreignKey: 'debtorId'
         });
         Bill.belongsTo(models.User, {
-          as: 'Creditor',
+          as: 'creditor',
           foreignKey: 'creditorId'
         });
       }
