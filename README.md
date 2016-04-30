@@ -1,6 +1,6 @@
 # Bill Split
 
-Easy way to split bill.
+Easy way to split bills.
 
 Built on top of Node.js using Express 4 with React, Redux, Webpack and Postgres.
 
@@ -9,10 +9,10 @@ coming soon...
 
 ## Table of Contents
 
-1. [Instructions](#instructions)
+1. [Instructions](#instructions-for-development)
 2. [Contributing](#contributing)
 
-## Instructions
+## Instructions For Development
 
 #### Databases
 
