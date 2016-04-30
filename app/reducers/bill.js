@@ -7,15 +7,15 @@ import {
   ADD_BILL_FAILURE } from 'constants/index';
 
 export default function bill(state = {
-  Debts: [],
-  Credits: []
+  debts: [],
+  credits: []
 }, action) {
   switch (action.type) {
     case GET_BILLS_REQUEST:
       return { ...state, isFetching: true };
     case GET_BILLS_SUCCESS: {
-      const { Debts, Credits } = action.result.data;
-      return { ...state, Debts, Credits, isFetching: false };
+      const { debts, credits } = action.result.data;
+      return { ...state, debts, credits, isFetching: false };
     }
     case GET_BILLS_FAILURE:
       return { ...state, isFetching: false };
