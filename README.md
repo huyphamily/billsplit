@@ -4,13 +4,16 @@ Easy way to split bills.
 
 Built on top of Node.js using Express 4 with React, Redux, Webpack and Postgres.
 
+
 ## Demo site:
 coming soon...
+
 
 ## Table of Contents
 
 1. [Instructions](#instructions-for-development)
 2. [Contributing](#contributing)
+
 
 ## Instructions For Development
 
@@ -37,14 +40,15 @@ createdb bill_split_development # or test/production
 npm run sequelize db:migrate
 ```
 
+
 #### Dependencies And Development Server
 
 **Installation**
 ```bash
 # Install node modules - this includes those for production and development
-# You only need to do this once :)
 npm install
 ```
+
 
 **Development Server**
 ```bash
@@ -53,6 +57,7 @@ npm install
 npm run dev
 
 ```
+
 
 ## Contributing
 
