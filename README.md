@@ -56,6 +56,6 @@ npm run dev
 
 ## Contributing
 
-[Airbnb's Style Guide](https://github.com/airbnb/javascript)
-[Airbnb's React Style Guide](https://github.com/airbnb/javascript/tree/master/react)
-[bendc's frontend guidelines](https://github.com/bendc/frontend-guidelines)
+- [Airbnb's Style Guide](https://github.com/airbnb/javascript)
+- [Airbnb's React Style Guide](https://github.com/airbnb/javascript/tree/master/react)
+- [bendc's frontend guidelines](https://github.com/bendc/frontend-guidelines)
