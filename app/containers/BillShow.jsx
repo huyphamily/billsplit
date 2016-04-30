@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchBills } from 'actions/bills';
+import { fetchBills, removeBillRequest } from 'actions/bills';
 
 class BillShow extends Component {
 
@@ -9,12 +9,21 @@ class BillShow extends Component {
   ]
 
   renderTable(title, data, user) {
-    const row = data.map((value) => {
+    const credit = title === 'Credits';
+    const row = data.map((value, index) => {
       return (
         <tr key={value.id}>
           <td>{value.description}</td>
           <td>{value.amount}</td>
           <td>{value[user].email}</td>
+          <td>
+            <input
+              className="btn btn-danger"
+              type="button"
+              onClick={() => this.props.removeBillRequest(value.id, index, credit)}
+              value="Marked Paid"
+            />
+          </td>
         </tr>
       )
     });
@@ -28,6 +37,7 @@ class BillShow extends Component {
               <th>Description</th>
               <th>Amount</th>
               <th>User</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -66,4 +76,4 @@ function mapStateToProps(state) {
   return { bill: state.bill };
 }
 
-export default connect(mapStateToProps)(BillShow);
+export default connect(mapStateToProps, { removeBillRequest })(BillShow);

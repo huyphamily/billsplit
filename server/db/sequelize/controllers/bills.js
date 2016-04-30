@@ -82,10 +82,10 @@ export function update(req, res) {
   };
 
   return Bill.update(params, { where: query }).then(() => {
-    res.status(200).send('Updated successfully');
+    return res.status(200).send('Updated successfully');
   }).catch((err) => {
     console.log(err);
-    res.status(500).send('We failed to save for some reason');
+    return res.status(500).send('We failed to save for some reason');
   });
 }
 
@@ -93,13 +93,15 @@ export function update(req, res) {
  * Remove a Bill
  */
 export function remove(req, res) {
-  const query = { id: req.params.id };
-
+  const query = {
+    id: req.params.id,
+    $or: [{ debtorId: req.user.id }, { creditorId: req.user.id }]
+  };
   return Bill.destroy({ where: query }).then(() => {
-    res.status(200).send('Removed Successfully');
+    return res.status(200).send('Removed Successfully');
   }).catch((err) => {
     console.log(err);
-    res.status(500).send('We failed to delete for some reason');
+    return res.status(500).send('We failed to delete for some reason');
   });
 }
 

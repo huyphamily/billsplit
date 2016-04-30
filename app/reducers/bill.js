@@ -4,7 +4,8 @@ import {
   GET_BILLS_FAILURE,
   ADD_BILL_REQUEST,
   ADD_BILL_SUCCESS,
-  ADD_BILL_FAILURE } from 'constants/index';
+  ADD_BILL_FAILURE,
+  DESTROY_BILL } from 'constants/index';
 
 export default function bill(state = {
   debts: [],
@@ -25,6 +26,17 @@ export default function bill(state = {
       return { ...state, isSubmitting: false };
     case ADD_BILL_FAILURE:
       return { ...state, isSubmitting: false };
+    case DESTROY_BILL:
+      if (action.credit) {
+        return {
+          ...state,
+          credits: [...state.credits.filter((v, i) => i !== action.index)]
+        };
+      }
+      return {
+        ...state,
+        debts: [...state.debts.filter((v, i) => i !== action.index)]
+      };
     default:
       return state;
   }

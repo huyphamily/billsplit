@@ -1,7 +1,8 @@
 /* eslint consistent-return: 0, no-else-return: 0*/
 import * as types from 'constants/index';
+import axios from 'axios';
 
-// Fetch posts logic
+// Fetch bill
 export function fetchBills() {
   return {
     type: types.GET_BILLS,
@@ -9,10 +10,27 @@ export function fetchBills() {
   };
 }
 
-// Fetch posts logic
+// Add bill
 export function addBill(data) {
   return {
     type: types.ADD_BILL,
     promise: (request) => request.post('/bill/new', data)
+  };
+}
+
+// Remove bill
+export function destroyBill(index, credit) {
+  return {
+    type: types.DESTROY_BILL,
+    index,
+    credit
+  };
+}
+
+export function removeBillRequest(id, index, credit) {
+  return dispatch => {
+    return axios.delete(`/bill/${id}`).then(() => {
+      dispatch(destroyBill(index, credit));
+    });
   };
 }
