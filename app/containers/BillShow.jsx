@@ -12,15 +12,15 @@ class BillShow extends Component {
     const credit = title === 'Credits';
     const row = data.map((value, index) => {
       return (
-        <tr key={value.id}>
+        <tr className={value.creditor == undefined? "green" : "red"} key={value.id}>
           <td>{value.description}</td>
           <td>{value.amount}</td>
-          <td>{value[user].email}</td>
+          <td>{value.creditor == undefined ? value.debtor.email : value.creditor.email}</td>
           <td>
             <input
               className="btn btn-danger"
               type="button"
-              onClick={() => this.props.removeBillRequest(value.id, index, credit)}
+              onClick={() => this.props.removeBillRequest(value.id, index, title)}
               value="Marked Paid"
             />
           </td>
@@ -49,12 +49,34 @@ class BillShow extends Component {
   }
 
   renderBills() {
-    const { credits, debts } = this.props.bill;
+    let bills = []; 
+    let debtsPointer = 0;
+    let creditsPointer = 0;
+    console.log(this.props.bill);
+    let length = this.props.bill.debts.length + this.props.bill.credits.length;
+    while (length > 0){
+      if(this.props.bill.credits[creditsPointer] == undefined){
+        bills.push(this.props.bill.debts[debtsPointer]);
+        debtsPointer ++;
+      }
+      else if(this.props.bill.debts[debtsPointer] == undefined){
+        bills.push(this.props.bill.credits[creditsPointer]);
+        creditsPointer ++;
+      }
+      else if(this.props.bill.debts[debtsPointer].createdAt > this.props.bill.credits[creditsPointer].createdAt){
+        bills.push(this.props.bill.debts[debtsPointer]);
+        debtsPointer  ++;
+      }else{
+        bills.push(this.props.bill.credits[creditsPointer]);
+        creditsPointer ++;
+      }
+      length --;
+    }
+
 
     return <div>
-             { credits.length ? this.renderTable('Credits', credits, 'debtor') : '' }
-             { debts.length ? this.renderTable('Debts', debts, 'creditor') : '' }
-             { credits.length === 0 && debts.length === 0 ?
+             { bills.length ? this.renderTable('Bills', bills) : '' }
+             { bills.length === 0 && bills.length === 0 ?
                'You currently have no bills. Go ahead and add one!' : '' }
            </div>;
   }
