@@ -8,19 +8,22 @@ class BillShow extends Component {
     fetchBills
   ]
 
-  renderTable(title, data, user) {
-    const credit = title === 'Credits';
-    const row = data.map((value, index) => {
+  renderTable() {
+    const { allBills } = this.props.bill;
+    const row = allBills.map((value, index) => {
+      const isCreditor = value.creditor === undefined;
       return (
-        <tr key={value.id}>
+        <tr
+          key={value.id}
+          className={isCreditor ? 'table-success' : 'table-danger'} >
           <td>{value.description}</td>
           <td>{value.amount}</td>
-          <td>{value[user].email}</td>
+          <td>{isCreditor ? value.debtor.email : value.creditor.email}</td>
           <td>
             <input
               className="btn btn-danger"
               type="button"
-              onClick={() => this.props.removeBillRequest(value.id, index, credit)}
+              onClick={() => this.props.removeBillRequest(value.id, index)}
               value="Marked Paid"
             />
           </td>
@@ -30,9 +33,9 @@ class BillShow extends Component {
 
     return (
       <div>
-        <h3>{title}</h3>
-        <table className="table table-inverse">
-          <thead>
+        <h3>Bills</h3>
+        <table className="table">
+          <thead className="thead-inverse">
             <tr>
               <th>Description</th>
               <th>Amount</th>
@@ -49,12 +52,11 @@ class BillShow extends Component {
   }
 
   renderBills() {
-    const { credits, debts } = this.props.bill;
+    const { allBills } = this.props.bill;
 
     return <div>
-             { credits.length ? this.renderTable('Credits', credits, 'debtor') : '' }
-             { debts.length ? this.renderTable('Debts', debts, 'creditor') : '' }
-             { credits.length === 0 && debts.length === 0 ?
+             { allBills.length ? this.renderTable() : '' }
+             { allBills.length === 0 ?
                'You currently have no bills. Go ahead and add one!' : '' }
            </div>;
   }
