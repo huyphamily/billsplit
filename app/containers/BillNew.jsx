@@ -71,8 +71,8 @@ class BillNew extends Component {
 }
 
 const rules = {
-    description: 'required|max:15',
-    participant: 'required|email',
+    description: 'required|max:100',
+    participant: 'required|email|max:255',
     amount: 'required|numeric|min:0.01',
     isPayer: 'required',
 };
