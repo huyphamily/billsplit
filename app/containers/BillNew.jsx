@@ -62,7 +62,7 @@ class BillNew extends Component {
             }
           </div>
         </div>
-        <input type="submit" className="btn btn-primary" disabled={isSubmitting}
+        <input type="submit" className="btn btn-primary" style={{ marginRight: '10px' }} disabled={isSubmitting}
           value={isSubmitting ? 'Submitting...' : 'Submit'} />
         <Link to="/dashboard" className="btn btn-danger" disabled={isSubmitting} >Cancel</Link>
       </form>
