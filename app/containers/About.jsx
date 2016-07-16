@@ -1,8 +1,6 @@
 import React from 'react';
-import classNames from 'classnames/bind';
-import styles from 'css/components/about';
-
-const cx = classNames.bind(styles);
+import classNames from 'classnames';
+import 'css/components/about';
 
 /*
  * Note: This is kept as a container-level component,
@@ -11,9 +9,9 @@ const cx = classNames.bind(styles);
  */
 const About = () => {
   return (
-    <div className={cx('about')}>
-      <h1 className={cx('header')}>About Bill Split</h1>
-      <div className={cx('description')}>
+    <div className={classNames('about container')}>
+      <h1 className={classNames('header')}>About Bill Split</h1>
+      <div className={classNames('description')}>
         <p>Nothing to see here. Come back soon!</p>
       </div>
     </div>

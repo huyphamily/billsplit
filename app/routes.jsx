@@ -37,7 +37,7 @@ export default (store) => {
   };
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={MainSection} />
+      <IndexRoute component={MainSection} onEnter={redirectAuth} />
       <Route path="login" component={LoginOrRegister} onEnter={redirectAuth} />
       <Route path="dashboard" component={Dashboard} onEnter={requireAuth}>
         <IndexRoute component={BillShow} />

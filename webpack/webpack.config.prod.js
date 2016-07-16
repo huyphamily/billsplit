@@ -37,7 +37,7 @@ var commonLoaders = [
     }
   },
   { test: /\.css$/,
-    loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module!postcss-loader')
+    loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
   }
 ];
 
