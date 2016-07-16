@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Navigation from 'containers/Navigation';
 import Message from 'containers/Message';
 import classNames from 'classnames';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'css/main';
 
 /*
