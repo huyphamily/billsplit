@@ -1,13 +1,19 @@
 import React from 'react';
-import classNames from 'classnames/bind';
-import styles from 'css/components/main-section';
-
-const cx = classNames.bind(styles);
+import classNames from 'classnames';
+import { Link } from 'react-router';
+import 'css/components/main-section';
 
 const MainSection = () => {
   return (
-    <div className={cx('main-section')}>
-      Hello World.
+    <div className={classNames('main-section')}>
+      <div className={classNames('jumbotron', 'jumbotron-fluid')}>
+        <div className={classNames('container', 'text-xs-center')}>
+          <h1 className={classNames('display-4')}>Keep track of bills with friends</h1>
+          <p>
+            <Link className={classNames('btn', 'btn-lg', 'btn-info')} to="/dashboard">Get Started</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

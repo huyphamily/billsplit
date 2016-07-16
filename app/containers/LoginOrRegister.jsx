@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import classNames from 'classnames/bind';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { manualLogin, signUp, toggleLoginMode } from 'actions/users';
-import styles from 'css/components/login';
+import 'css/components/login';
 import hourGlassSvg from 'images/hourglass.svg';
-
-const cx = classNames.bind(styles);
 
 class LoginOrRegister extends Component {
   /*
@@ -47,11 +45,11 @@ class LoginOrRegister extends Component {
     const { isLogin } = this.props.user;
     if (isLogin) {
       return (
-        <div className={cx('header')}>
-          <h1 className={cx('heading')}>Login with Email</h1>
-          <div className={cx('alternative')}>
+        <div className={classNames('header')}>
+          <h1 className={classNames('heading')}>Login with Email</h1>
+          <div className={classNames('alternative')}>
             Not what you want?
-            <a className={cx('alternative-link')}
+            <a className={classNames('alternative-link')}
               onClick={this.toggleMode}> Register an Account</a>
           </div>
         </div>
@@ -59,42 +57,62 @@ class LoginOrRegister extends Component {
     }
 
     return (
-      <div className={cx('header')}>
-      <h1 className={cx('heading')}>Register with Email</h1>
-        <div className={cx('alternative')}>
+      <div className={classNames('header')}>
+      <h1 className={classNames('heading')}>Register with Email</h1>
+        <div className={classNames('alternative')}>
           Already have an account?
-          <a className={cx('alternative-link')}
+          <a className={classNames('alternative-link')}
             onClick={this.toggleMode}> Login</a>
         </div>
       </div>
     );
   }
 
+  // <div class="form-group row">
+  //   <label for="inputEmail3" class="col-sm-2 form-control-label">Email</label>
+  //   <div class="col-sm-10">
+  //     <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+  //   </div>
+  // </div>
+
   render() {
     const { isWaiting, message, isLogin } = this.props.user;
 
     return (
-      <div className={cx('login', {
+      <div className={classNames('login-or-register', {
         waiting: isWaiting
       })}>
-        <div className={cx('container')}>
+        <div>
           { this.renderHeader() }
-          <img className={cx('loading')} src={hourGlassSvg} />
-          <div className={cx('email-container')}>
-            <form onSubmit={this.handleOnSubmit}>
-              <input className={cx('input')}
-                type="email"
-                ref="email"
-                placeholder="email" />
-              <input className={cx('input')}
-                type="password"
-                ref="password"
-                placeholder="password" />
-              <p className={cx('message', {
-                'message-show': message && message.length > 0
-              })}>{message}</p>
-              <input className={cx('button')} type="submit"
+          <img className={classNames('loading')} src={hourGlassSvg} />
+          <div className={classNames('col-xs-12')}>
+            <form
+              className={classNames('text-xs-center')}
+              onSubmit={this.handleOnSubmit} >
+              <fieldset className={classNames('form-group')}>
+                <input
+                  className={classNames('form-control')}
+                  type="email"
+                  ref="email"
+                  placeholder="email" />
+              </fieldset>
+              <fieldset className={classNames('form-group')}>
+                <input
+                  className={classNames('form-control')}
+                  type="password"
+                  ref="password"
+                  placeholder="password" />
+              </fieldset>
+              <input className={classNames('btn btn-primary btn-block')} type="submit"
                 value={isLogin ? 'Login' : 'Register'} />
+              <div
+                className={
+                  classNames('alert alert-info message', {
+                    invisible: !message || message.length === 0
+                  })
+                } >
+                {message}
+              </div>
             </form>
           </div>
         </div>

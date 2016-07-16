@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react';
 import Navigation from 'containers/Navigation';
 import Message from 'containers/Message';
-import classNames from 'classnames/bind';
-import styles from 'css/main';
-
-const cx = classNames.bind(styles);
-
+import classNames from 'classnames';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'css/main';
 
 /*
  * React-router's <Router> component renders <Route>'s
@@ -18,10 +16,10 @@ const cx = classNames.bind(styles);
  */
 const App = ({children}) => {
   return (
-    <div className={cx('app')}>
+    <div className={classNames('app')}>
       <Navigation />
       <Message />
-        {children}
+      {children}
     </div>
   );
 };

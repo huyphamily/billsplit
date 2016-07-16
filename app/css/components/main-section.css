@@ -1,7 +1,1 @@
-@value global-radius from '../settings.css';
 
-.main-section {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-}
