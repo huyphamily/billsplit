@@ -75,7 +75,7 @@ class LoginOrRegister extends Component {
       <div className={classNames('login-or-register', {
         waiting: isWaiting
       })}>
-        <div>
+        <div className={classNames('login-container')}>
           { this.renderHeader() }
           <img className={classNames('loading')} src={hourGlassSvg} />
           <div className={classNames('col-xs-12')}>
