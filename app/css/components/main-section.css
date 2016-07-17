@@ -1,1 +1,14 @@
+.main-section {
+  height: calc(100vh - 54px);
+  background: url('../../images/landing-photo.jpg') no-repeat center center fixed;
+  background-size: cover;
 
+  .container {
+    padding-top: 25vh;
+
+    h1 {
+      color: white;
+      padding-bottom: 0.9em;
+    }
+  }
+}
