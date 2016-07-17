@@ -107,7 +107,7 @@ export function signUp(data) {
       .then(response => {
         if (response.status === 200) {
           dispatch(signUpSuccess(response.data.message));
-          dispatch(push('/'));
+          dispatch(push('/dashboard'));
         } else {
           dispatch(signUpError('Oops! Something went wrong'));
         }
@@ -126,6 +126,7 @@ export function logOut() {
       .then(response => {
         if (response.status === 200) {
           dispatch(logoutSuccess());
+          dispatch(push('/'));
         } else {
           dispatch(logoutError());
         }
