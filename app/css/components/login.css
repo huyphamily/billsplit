@@ -1,42 +1,45 @@
 .login-or-register {
-  width: 420px;
-  margin: 0 auto;
+  height: calc(100vh - 54px);
+  background: url('../../images/landing-photo.jpg') no-repeat center center fixed;
+  background-size: cover;
 
-  &.waiting {
+  .login-container {
+    width: 420px;
+    margin: 0 auto;
+
+    &.waiting {
+      .loading {
+        display: block;
+      }
+    }
+
+    .alternative {
+      padding: 12px 8px;
+      text-align: center;
+    }
+
+    .alternative-link {
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     .loading {
-      display: block;
+      display: none;
+      text-align: center;
+      margin: 24px auto;
+    }
+
+    .email-container {
+      padding: 16px 12px;
+    }
+
+    .google-container {
+      padding: 16px 12px;
+    }
+
+    .heading {
+      padding: 16px 12px;
+      text-align: center;
     }
   }
-
-  .alternative {
-    padding: 12px 8px;
-
-    text-align: center;
-  }
-
-  .alternative-link {
-    font-weight: bold;
-
-    cursor: pointer;
-  }
-
-  .loading {
-    display: none;
-    text-align: center;
-    margin: 24px auto;
-  }
-
-  .email-container {
-    padding: 16px 12px;
-  }
-
-  .google-container {
-    padding: 16px 12px;
-  }
-
-  .heading {
-    padding: 16px 12px;
-    text-align: center;
-  }
-
 }
