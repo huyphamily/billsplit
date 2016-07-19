@@ -85,7 +85,11 @@ export function manualLogin(data) {
       .then(response => {
         if (response.status === 200) {
           dispatch(loginSuccess(response.data.message));
-          dispatch(notify({ message: response.data.message, status: response.status }));
+          dispatch(notify({
+            message: response.data.message,
+            status: response.status,
+            closeButton: true,
+          }));
           dispatch(push('/'));
         } else {
           dispatch(loginError('Oops! Something went wrong!'));
@@ -93,7 +97,11 @@ export function manualLogin(data) {
       })
       .catch(err => {
         dispatch(loginError(err.data.message));
-        dispatch(notify({ message: err.data.message, status: err.status }));
+        dispatch(notify({
+          message: err.data.message,
+          status: err.status,
+          closeButton: true,
+        }));
       });
   };
 }
@@ -106,7 +114,11 @@ export function signUp(data) {
       .then(response => {
         if (response.status === 200) {
           dispatch(signUpSuccess());
-          dispatch(notify({ message: response.data.message, status: response.status }));
+          dispatch(notify({
+            message: response.data.message,
+            status: response.status,
+            closeButton: true,
+          }));
           dispatch(push('/dashboard'));
         } else {
           dispatch(signUpError('Oops! Something went wrong'));
@@ -114,7 +126,11 @@ export function signUp(data) {
       })
       .catch(err => {
         dispatch(signUpError());
-        dispatch(notify({ message: err.data.message, status: err.status }));
+        dispatch(notify({
+          message: err.data.message,
+          status: err.status,
+          closeButton: true,
+        }));
       });
   };
 }
