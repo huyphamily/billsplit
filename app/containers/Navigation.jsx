@@ -14,6 +14,7 @@ const Navigation = ({user, dispatch}) => {
         className={classNames('navigation navbar navbar-full navbar-dark bg-inverse')}
         role="navigation" >
         <Link to="/" className={classNames('navbar-brand logo')} >
+          <i className={classNames('fa fa-pied-piper')} />
           Bill Split
         </Link>
         <ul className={classNames('nav navbar-nav pull-xs-right')} >
@@ -25,11 +26,11 @@ const Navigation = ({user, dispatch}) => {
           </li>
           <li className={classNames('nav-item')} >
             { user.authenticated ? (
-              <Link onClick={logout} className={classNames('nav-link')} to="/" >
+              <Link onClick={logout} className={classNames('btn btn-primary')} to="/" >
               Logout
               </Link>
             ) : (
-              <Link className={classNames('nav-link')} to="/login" >Log in</Link>
+              <Link className={classNames('btn btn-primary')} to="/login" >Log in</Link>
             )}
           </li>
         </ul>

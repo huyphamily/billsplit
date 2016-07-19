@@ -1,5 +1,9 @@
 .navigation {
   .logo {
     margin-right: 35px;
+
+    i {
+      color: green;
+    }
   }
 }
