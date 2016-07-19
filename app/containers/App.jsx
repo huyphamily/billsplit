@@ -1,9 +1,17 @@
 import React, { PropTypes } from 'react';
 import Navigation from 'containers/Navigation';
-import Message from 'containers/Message';
+// import Message from 'containers/Message';
+import NotificationsSystem, { POSITIONS } from 'reapop';
+import theme from 'reapop-theme-wybo';
 import classNames from 'classnames';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'css/main';
+
+// notification defaults
+const defaultValues = {
+  position: POSITIONS.topCenter,
+  closeButton: true,
+};
 
 /*
  * React-router's <Router> component renders <Route>'s
@@ -18,7 +26,7 @@ const App = ({children}) => {
   return (
     <div className={classNames('app')}>
       <Navigation />
-      <Message />
+      <NotificationsSystem theme={theme} defaultValues={defaultValues} />
       {children}
     </div>
   );
