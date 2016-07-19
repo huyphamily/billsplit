@@ -1,6 +1,7 @@
 import { polyfill } from 'es6-promise';
 import request from 'axios';
 import { push } from 'react-router-redux';
+import {addNotification as notify} from 'reapop';
 
 import * as types from 'constants';
 
@@ -30,25 +31,22 @@ function beginLogin() {
   return { type: types.MANUAL_LOGIN_USER };
 }
 
-function loginSuccess(message) {
+function loginSuccess() {
   return {
-    type: types.LOGIN_SUCCESS_USER,
-    message
+    type: types.LOGIN_SUCCESS_USER
   };
 }
 
-function loginError(message) {
+function loginError() {
   return {
-    type: types.LOGIN_ERROR_USER,
-    message
+    type: types.LOGIN_ERROR_USER
   };
 }
 
 // Sign Up Action Creators
-function signUpError(message) {
+function signUpError() {
   return {
-    type: types.SIGNUP_ERROR_USER,
-    message
+    type: types.SIGNUP_ERROR_USER
   };
 }
 
@@ -56,10 +54,9 @@ function beginSignUp() {
   return { type: types.SIGNUP_USER };
 }
 
-function signUpSuccess(message) {
+function signUpSuccess() {
   return {
-    type: types.SIGNUP_SUCCESS_USER,
-    message
+    type: types.SIGNUP_SUCCESS_USER
   };
 }
 
@@ -88,6 +85,7 @@ export function manualLogin(data) {
       .then(response => {
         if (response.status === 200) {
           dispatch(loginSuccess(response.data.message));
+          dispatch(notify({ message: response.data.message, status: response.status }));
           dispatch(push('/'));
         } else {
           dispatch(loginError('Oops! Something went wrong!'));
@@ -95,6 +93,7 @@ export function manualLogin(data) {
       })
       .catch(err => {
         dispatch(loginError(err.data.message));
+        dispatch(notify({ message: err.data.message, status: err.status }));
       });
   };
 }
@@ -106,14 +105,16 @@ export function signUp(data) {
     return makeUserRequest('post', data, '/signup')
       .then(response => {
         if (response.status === 200) {
-          dispatch(signUpSuccess(response.data.message));
+          dispatch(signUpSuccess());
+          dispatch(notify({ message: response.data.message, status: response.status }));
           dispatch(push('/dashboard'));
         } else {
           dispatch(signUpError('Oops! Something went wrong'));
         }
       })
       .catch(err => {
-        dispatch(signUpError(err.data.message));
+        dispatch(signUpError());
+        dispatch(notify({ message: err.data.message, status: err.status }));
       });
   };
 }

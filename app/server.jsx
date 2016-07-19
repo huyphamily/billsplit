@@ -24,7 +24,7 @@ global.__SERVER__ = true;
  * @param head - optional arguments to be placed into the head
  */
 function renderFullPage(renderedContent, initialState, head = {
-  title: 'React Webpack Node',
+  title: '',
   meta: '<meta name="viewport" content="width=device-width, initial-scale=1" />',
   link: '<link rel="stylesheet" href="/assets/styles/main.css"/>'
 }) {
